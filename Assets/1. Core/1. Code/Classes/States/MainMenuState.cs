@@ -19,10 +19,11 @@ namespace CodeBase.Infrastructure {
             _sceneLoader.Load(sceneName, OnLoaded);
         }
 
-        public void Exit() =>
-            _loadingCurtain.Hide();
+        public void Exit() {
+            
+        }
 
-        private void OnLoaded() { }
+        private void OnLoaded() => _loadingCurtain.Hide();
 
         private void OpenLevel() {
             _gameStateMachine.Enter<LoadLevelState, string>(Consts.Game);

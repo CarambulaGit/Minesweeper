@@ -1,3 +1,4 @@
+using CodeBase.Infrastructure.AssetManagement;
 using CodeBase.Infrastructure.Factory;
 using CodeBase.Logic;
 using UnityEngine;
@@ -9,7 +10,15 @@ public class ServiceRegister : MonoInstaller {
 
     public override void InstallBindings() {
         BindCurtain();
+        BindAssetProvider();
         BindFactory();
+    }
+
+    private void BindAssetProvider() {
+        Container
+            .Bind<IAssetsProvider>()
+            .To<AssetsProvider>()
+            .AsSingle();
     }
 
     private void BindCurtain() {

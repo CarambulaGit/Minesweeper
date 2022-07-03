@@ -15,7 +15,7 @@ namespace CodeBase.Infrastructure {
             _curtain = curtain;
             _gameFactory = gameFactory;
         }
-        
+
         private void Awake() {
             DontDestroyOnLoad(this);
         }
