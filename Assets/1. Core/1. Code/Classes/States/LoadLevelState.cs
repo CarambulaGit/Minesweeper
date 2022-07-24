@@ -1,11 +1,8 @@
 ﻿using CodeBase.Infrastructure.Factory;
 using CodeBase.Logic;
-using UnityEngine;
 
 namespace CodeBase.Infrastructure.States {
-    public class LoadLevelState : IPayloadedState<string> {
-        private const string InitialPointTag = "InitialPoint";
-
+    public class LoadLevelState : IState {
         private readonly GameStateMachine _stateMachine;
         private readonly SceneLoader _sceneLoader;
         private readonly LoadingCurtain _loadingCurtain;
@@ -19,9 +16,9 @@ namespace CodeBase.Infrastructure.States {
             _gameFactory = gameFactory;
         }
 
-        public void Enter(string sceneName) {
+        public void Enter() {
             _loadingCurtain.Show();
-            _sceneLoader.Load(sceneName, OnLoaded);
+            _sceneLoader.Load(Consts.Game, OnLoaded);
         }
 
         public void Exit() =>

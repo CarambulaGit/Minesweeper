@@ -1,5 +1,4 @@
 ﻿using CodeBase.Infrastructure.States;
-using UnityEngine;
 
 namespace CodeBase.Infrastructure {
     public class BootstrapState : IState {
@@ -18,6 +17,6 @@ namespace CodeBase.Infrastructure {
         public void Exit() { }
 
         private void EnterMainMenu() =>
-            _stateMachine.Enter<MainMenuState, string>(Consts.MainMenu);
+            _stateMachine.Enter<MainMenuState>();
     }
 }

@@ -13,6 +13,6 @@ namespace CodeBase.Infrastructure {
         public void Exit() { }
 
         private void EnterMainMenu() =>
-            _gameStateMachine.Enter<MainMenuState, string>(Consts.MainMenu);
+            _gameStateMachine.Enter<MainMenuState>();
     }
 }
