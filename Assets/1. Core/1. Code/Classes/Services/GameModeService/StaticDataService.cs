@@ -1,4 +1,5 @@
 ﻿using CodeBase.Logic;
+using Unity.Plastic.Newtonsoft.Json;
 using UnityEngine;
 
 namespace CodeBase.Infrastructure.Services
@@ -7,11 +8,11 @@ namespace CodeBase.Infrastructure.Services
         public GameMode PreviousGameMode {
             get {
                 var previousGameMode = PlayerPrefs.GetString(Consts.GameModeKey);
-                var result = JsonUtility.FromJson<GameMode>(previousGameMode);
+                var result = JsonConvert.DeserializeObject<GameMode>(previousGameMode);
                 return result;
             }
             set {
-                var json = JsonUtility.ToJson(value);
+                var json = JsonConvert.SerializeObject(value);
                 PlayerPrefs.SetString(Consts.GameModeKey, json);
             }
         }

@@ -1,29 +1,60 @@
 ﻿using System;
+using Unity.Plastic.Newtonsoft.Json;
 using UnityEngine;
 
-namespace CodeBase.Logic {
-    
+namespace CodeBase.Logic
+{
     [Serializable]
-    public class GameMode {
-        [SerializeField] private int _numOfMines;
-        [SerializeField] private int _fieldXSize;
-        [SerializeField] private int _fieldYSize;
-
-        public int NumOfMines => _numOfMines;
-
-        public int FieldXSize => _fieldXSize;
-
-        public int FieldYSize => _fieldYSize;
-
-        public GameMode(int fieldXSize, int fieldYSize, int numOfMines) {
-            _numOfMines = numOfMines;
-            _fieldXSize = fieldXSize;
-            _fieldYSize = fieldYSize;
+    public class GameMode
+    {
+        public enum Difficulty
+        {
+            Custom,
+            Easy,
+            Medium,
+            Hard,
         }
 
-        public static GameMode EasyMode() => new GameMode(5, 5, 6);
-        public static GameMode MediumMode() => new GameMode(10, 10, 25);
-        public static GameMode HardMode() => new GameMode(20, 20, 100);
+        public int NumOfMines { get; }
+        public int FieldXSize { get; }
+        public int FieldYSize { get; }
+        public Difficulty GameDifficulty { get; }
+
+        [JsonConstructor]
+        private GameMode(int fieldXSize, int fieldYSize, int numOfMines, Difficulty gameDifficulty)
+        {
+            NumOfMines = numOfMines;
+            FieldXSize = fieldXSize;
+            FieldYSize = fieldYSize;
+            GameDifficulty = gameDifficulty;
+        }
+
+        public static GameMode GameModeWithDifficulty(Difficulty difficulty)
+        {
+            return difficulty switch
+            {
+                Difficulty.Easy => EasyMode(),
+                Difficulty.Medium => MediumMode(),
+                Difficulty.Hard => HardMode(),
+                _ => throw new ArgumentOutOfRangeException(nameof(difficulty), difficulty, null)
+            };
+        }
+
+        public static GameMode CustomMode(int fieldXSize, int fieldYSize, int numOfMines) =>
+            new GameMode(fieldXSize, fieldYSize, numOfMines, Difficulty.Custom);
+
+        private static GameMode EasyMode() => new GameMode(5, 5, 6, Difficulty.Easy);
+
+        private static GameMode MediumMode() => new GameMode(10, 10, 25, Difficulty.Medium);
+
+        private static GameMode HardMode() => new GameMode(20, 20, 100, Difficulty.Hard);
+
+        public override bool Equals(object obj)
+        {
+            if (obj is not GameMode gameMode) return false;
+            return GameDifficulty == gameMode.GameDifficulty && NumOfMines == gameMode.NumOfMines &&
+                   FieldXSize == gameMode.FieldXSize && FieldYSize == gameMode.FieldYSize;
+        }
 
         public override string ToString()
         {

@@ -11,18 +11,13 @@ namespace CodeBase.Infrastructure.Services {
             _staticData = staticData;
         }
         
-        public GameMode GetGameMode() {
-            GameMode result;
+        public GameMode GetGameMode()
+        {
             if (_gameMode != null) {
-                result = _gameMode;
-            } else if (_staticData.PreviousGameMode != null) {
-                result = _staticData.PreviousGameMode;
-            }
-            else {
-                result = GameMode.EasyMode();
+                return _gameMode;
             }
 
-            return result;
+            return _staticData.PreviousGameMode ?? GameMode.GameModeWithDifficulty(GameMode.Difficulty.Easy);
         }
 
 
