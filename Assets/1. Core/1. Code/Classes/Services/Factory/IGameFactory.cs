@@ -6,5 +6,6 @@ namespace CodeBase.Infrastructure.Factory {
     public interface IGameFactory : IService {
         UniTask<GameObject> CreateCell(GameObject at);
         UniTask<GameObject> CreateHud();
+        void Cleanup();
     }
 }

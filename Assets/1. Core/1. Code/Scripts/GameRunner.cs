@@ -8,9 +8,11 @@ namespace CodeBase.Infrastructure {
         private Game _game;
         private LoadingCurtain _curtain;
         private IGameFactory _gameFactory;
+        private IMainMenuUIFactory _mainMenuUIFactory;
 
         [Inject]
-        private void Construct(LoadingCurtain curtain, IGameFactory gameFactory) {
+        private void Construct(LoadingCurtain curtain, IGameFactory gameFactory, IMainMenuUIFactory mainMenuUIFactory) {
+            _mainMenuUIFactory = mainMenuUIFactory;
             _curtain = curtain;
             _gameFactory = gameFactory;
         }
@@ -20,7 +22,7 @@ namespace CodeBase.Infrastructure {
         }
 
         private void Start() {
-            _game = new Game(this, _curtain, _gameFactory);
+            _game = new Game(this, _curtain, _gameFactory, _mainMenuUIFactory);
             _game.StateMachine.Enter<BootstrapState>();
         }
     }

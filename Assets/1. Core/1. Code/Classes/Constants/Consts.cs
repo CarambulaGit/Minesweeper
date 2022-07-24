@@ -7,6 +7,12 @@
 
     #endregion
 
+    #region Tags
+
+    public const string MainMenuTag = "MainMenu";
+
+    #endregion
+
     #region PlayerPrefsKeys
 
     public const string GameModeKey = "GameMode";

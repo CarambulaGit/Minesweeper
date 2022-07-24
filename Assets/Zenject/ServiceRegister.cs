@@ -12,6 +12,7 @@ public class ServiceRegister : MonoInstaller {
         BindCurtain();
         BindAssetProvider();
         BindFactory();
+        BindMainMenuUIFactory();
     }
 
     private void BindAssetProvider() {
@@ -32,6 +33,13 @@ public class ServiceRegister : MonoInstaller {
         Container
             .Bind<IGameFactory>()
             .To<GameFactory>()
+            .AsSingle();
+    }
+
+    private void BindMainMenuUIFactory() {
+        Container
+            .Bind<IMainMenuUIFactory>()
+            .To<MainMenuUIFactory>()
             .AsSingle();
     }
 }

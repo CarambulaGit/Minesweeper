@@ -7,14 +7,14 @@ using Zenject;
 
 namespace CodeBase.Infrastructure {
     public class GameStateMachine {
-        private Dictionary<Type, IExitableState> _states;
+        private readonly Dictionary<Type, IExitableState> _states;
         private IExitableState _activeState;
 
         [Inject]
-        public GameStateMachine(SceneLoader sceneLoader, LoadingCurtain loadingCurtain, IGameFactory gameFactory) {
+        public GameStateMachine(SceneLoader sceneLoader, LoadingCurtain loadingCurtain, IGameFactory gameFactory, IMainMenuUIFactory mainMenuUIFactory) {
             _states = new Dictionary<Type, IExitableState> {
                 [typeof(BootstrapState)] = new BootstrapState(this, sceneLoader),
-                [typeof(MainMenuState)] = new MainMenuState(this, sceneLoader, loadingCurtain),
+                [typeof(MainMenuState)] = new MainMenuState(this, sceneLoader, loadingCurtain, mainMenuUIFactory),
                 [typeof(LoadLevelState)] = new LoadLevelState(this, sceneLoader, loadingCurtain, gameFactory),
                 [typeof(GameLoopState)] = new GameLoopState(this),
             };
