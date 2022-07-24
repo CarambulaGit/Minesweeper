@@ -1,6 +1,5 @@
 ﻿using System;
 using Unity.Plastic.Newtonsoft.Json;
-using UnityEngine;
 
 namespace CodeBase.Logic
 {
