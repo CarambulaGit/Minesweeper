@@ -10,6 +10,8 @@
     #region Tags
 
     public const string MainMenuTag = "MainMenu";
+    public const string GameViewTag = "GameView";
+    public const string GameEndTag = "GameEnd";
 
     #endregion
 

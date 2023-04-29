@@ -5,13 +5,16 @@ using Zenject;
 
 namespace CodeBase.Infrastructure {
     public class GameRunner : MonoBehaviour, ICoroutineRunner {
-        private Game _game;
+        private Application _app;
         private LoadingCurtain _curtain;
         private IGameFactory _gameFactory;
         private IMainMenuUIFactory _mainMenuUIFactory;
+        private IGameEndUIFactory _gameEndUIFactory;
 
         [Inject]
-        private void Construct(LoadingCurtain curtain, IGameFactory gameFactory, IMainMenuUIFactory mainMenuUIFactory) {
+        private void Construct(LoadingCurtain curtain, IGameFactory gameFactory, IMainMenuUIFactory mainMenuUIFactory,
+            IGameEndUIFactory gameEndUIFactory) {
+            _gameEndUIFactory = gameEndUIFactory;
             _mainMenuUIFactory = mainMenuUIFactory;
             _curtain = curtain;
             _gameFactory = gameFactory;
@@ -22,8 +25,8 @@ namespace CodeBase.Infrastructure {
         }
 
         private void Start() {
-            _game = new Game(this, _curtain, _gameFactory, _mainMenuUIFactory);
-            _game.StateMachine.Enter<BootstrapState>();
+            _app = new Application(this, _curtain, _gameFactory, _mainMenuUIFactory, _gameEndUIFactory);
+            _app.StateMachine.Enter<BootstrapState>();
         }
     }
 }

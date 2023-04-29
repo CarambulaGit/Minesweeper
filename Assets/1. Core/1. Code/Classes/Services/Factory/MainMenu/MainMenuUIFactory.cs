@@ -2,13 +2,10 @@
 using CodeBase.UI.Windows.MainMenu;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using Zenject;
 
-namespace CodeBase.Infrastructure.Factory
-{
-    public class MainMenuUIFactory : IMainMenuUIFactory
-    {
+namespace CodeBase.Infrastructure.Factory {
+    public class MainMenuUIFactory : IMainMenuUIFactory {
         private IAssetsProvider _assetsProvider;
         private DiContainer _diContainer;
         private MainMenu _uiRoot;
@@ -18,17 +15,14 @@ namespace CodeBase.Infrastructure.Factory
             _diContainer = diContainer;
             _assetsProvider = assetsProvider;
         }
-        
-        public async UniTask<MainMenu> CreateUIRoot()
-        {
+
+        public async UniTask<MainMenu> CreateUIRoot(Transform at) {
             var rootPrefab = await _assetsProvider.Load<GameObject>(AssetPath.MainMenuRootPath);
-            var uiParent = GameObject.FindWithTag(Consts.MainMenuTag).transform;
-            _uiRoot = _diContainer.InstantiatePrefabForComponent<MainMenu>(rootPrefab, uiParent);
+            _uiRoot = _diContainer.InstantiatePrefabForComponent<MainMenu>(rootPrefab, at);
             return _uiRoot;
         }
 
-        public void Cleanup()
-        {
+        public void Cleanup() {
             _uiRoot = null;
         }
     }

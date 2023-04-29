@@ -2,8 +2,7 @@
 using Unity.Plastic.Newtonsoft.Json;
 using UnityEngine;
 
-namespace CodeBase.Infrastructure.Services
-{
+namespace CodeBase.Infrastructure.Services {
     public class StaticDataService {
         public GameMode PreviousGameMode {
             get {

@@ -14,10 +14,10 @@ namespace CodeBase.Infrastructure {
             _coroutineRunner.StartCoroutine(LoadScene(name, onLoaded));
 
         private IEnumerator LoadScene(string nextScene, Action onLoaded = null) {
-            if (SceneManager.GetActiveScene().name == nextScene) {
-                onLoaded?.Invoke();
-                yield break;
-            }
+            // if (SceneManager.GetActiveScene().name == nextScene) {
+            //     onLoaded?.Invoke();
+            //     yield break;
+            // }
 
             AsyncOperation waitNextScene = SceneManager.LoadSceneAsync(nextScene);
 

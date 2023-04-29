@@ -10,16 +10,13 @@ namespace CodeBase.Infrastructure.Services {
         private GameModeService(StaticDataService staticData) {
             _staticData = staticData;
         }
-        
-        public GameMode GetGameMode()
-        {
+
+        public GameMode GetGameMode() {
             if (_gameMode != null) {
                 return _gameMode;
             }
 
             return _staticData.PreviousGameMode ?? GameMode.GameModeWithDifficulty(GameMode.Difficulty.Easy);
         }
-
-
     }
 }

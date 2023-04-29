@@ -1,18 +1,24 @@
+using CodeBase.Infrastructure.Logic.Game;
 using CodeBase.Infrastructure.States;
+using CodeBase.Logic;
 
 namespace CodeBase.Infrastructure {
-    public class GameLoopState : IState {
-        private readonly GameStateMachine _gameStateMachine;
+    public class GameLoopState : IPayloadedState<Game> {
+        private readonly ApplicationStateMachine _appStateMachine;
+        private Game _game;
 
-        public GameLoopState(GameStateMachine gameStateMachine) {
-            _gameStateMachine = gameStateMachine;
+        public GameLoopState(ApplicationStateMachine appStateMachine) {
+            _appStateMachine = appStateMachine;
         }
 
-        public void Enter() { }
+        public void Enter(Game game) {
+            _game = game;
+            _game.GameEndEvent += EnterGameEndState;
+        }
 
-        public void Exit() { }
+        public void Exit() => _game.GameEndEvent -= EnterGameEndState;
 
-        private void EnterMainMenu() =>
-            _gameStateMachine.Enter<MainMenuState>();
+        private void EnterGameEndState(bool isWin) =>
+            _appStateMachine.Enter<GameEndState, GameMode, bool>(_game.GameMode, isWin);
     }
 }

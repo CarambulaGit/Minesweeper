@@ -1,10 +1,8 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-namespace CodeBase.UI.Windows
-{
-    public abstract class WindowBase : MonoBehaviour
-    {
+namespace CodeBase.UI.Windows {
+    public abstract class WindowBase : MonoBehaviour {
         [SerializeField] private Button closeButton;
 
         protected void Construct() { }
@@ -12,8 +10,7 @@ namespace CodeBase.UI.Windows
         private void Awake() =>
             OnAwake();
 
-        private void Start()
-        {
+        private void Start() {
             Initialize();
             SubscribeUpdates();
         }
