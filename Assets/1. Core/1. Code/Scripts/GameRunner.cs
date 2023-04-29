@@ -11,7 +11,7 @@ namespace CodeBase.Infrastructure {
         private IMainMenuUIFactory _mainMenuUIFactory;
         private IGameEndUIFactory _gameEndUIFactory;
 
-        [Inject]
+        // [Inject]
         private void Construct(LoadingCurtain curtain, IGameFactory gameFactory, IMainMenuUIFactory mainMenuUIFactory,
             IGameEndUIFactory gameEndUIFactory) {
             _gameEndUIFactory = gameEndUIFactory;
